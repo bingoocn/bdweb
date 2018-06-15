@@ -1,0 +1,155 @@
+body{
+  background-color: #f2f8fe;
+}
+ul,li{
+  list-style: none;
+}
+a:hover{
+  text-decoration: none;
+  cursor: pointer;
+}
+a:focus{
+  text-decoration: none;
+}
+.margin-top-10{
+  margin-top: 10px;
+}
+.margin-bottom-10{
+  margin-bottom: 10px;
+}
+.no-margin-left{
+  margin-left: 0;
+}
+.no-margin-right{
+  margin-right: 0;
+}
+.no-padding-bottom{
+  padding-bottom: 0!important;
+}
+.no-padding-top{
+  padding-top:0!important;
+}
+.panelBox{
+  padding: 15px 25px; 
+  background-color: #fff;
+  overflow: hidden;
+}
+.panelBox .panelHeader{
+  padding: 16.5px 0;
+  position: relative;
+}
+.panelBox .panelHeader i{
+  height: 1px;
+  display: block;
+  width: 100%;
+  background:#0d5183;
+  margin-top: 3px;
+}
+.panelBox .panelHeader div{
+  height: 34px;
+  padding-right: 15px;
+  background-color: #fff;
+  font-size: 20px;
+  color:#0d5183;
+  font-weight: bold;
+  line-height: 34px;
+  position:absolute;
+  left: 22px;
+  top: 0;
+}
+.panelBox .panelHeader div img{
+  padding-right: 10px;
+  vertical-align: middle;
+}
+.panelBox .panelLeftHeader{
+  position: relative;
+  float: left;
+  width: 46px;
+  height: 158px;
+  padding: 22px 13px;
+  background-color: #97bcef;
+  transition: all .25s;
+  -moz-transition: all .25s;  /* Firefox 4 */
+  -webkit-transition: all .25s; /* Safari å’Œ Chrome */
+  -o-transition: all .25s;
+}
+.panelBox:hover .panelLeftHeader a{
+  color:#0288d1;
+  text-decoration: none;
+}
+.panelBox .panelLeftHeader a{
+  color:#fff;
+  font-size: 20px;
+  text-align:center;
+  line-height: 30px; 
+}
+.panelBox .panelRightBody{
+  float: right;
+  width:calc( 100% - 46px);
+}
+.panelBox .panelRightBody a{
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+}
+.panelBox .panelRightBody a img{
+  width: 100%;
+  height: 158px;
+  float: left;
+}
+.more{
+  display: block;
+    float: right;
+    position: absolute;
+    right: 18px;
+    top:11px;
+    width:28px;
+    height:18px;
+    background:url("../imgs/bigDipper_171124_14.png");
+}
+.bscUl1{
+  margin-top: 10px;
+  padding-left: 0;
+  overflow: hidden;
+}
+.bscUl1 li{
+  line-height: 35px;
+  padding-left: 12px;
+}
+.bscUl1 li .leftA{
+  display: inline-block;
+  width: 80%;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  color: #333;
+  transition: all .2s;
+  -moz-transition: all .2s;
+  -webkit-transition: all .2s;
+  -o-transition: all .2s;
+}
+.bscUl1 li .leftB{
+  display: inline-block;
+  width: 100%;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  color: #333;
+  transition: all .2s;
+  -moz-transition: all .2s;
+  -webkit-transition: all .2s;
+  -o-transition: all .2s;
+}
+.bscUl1 li:hover .leftA,.bscUl1 li:hover .leftB{
+  color:#284c93;
+  text-decoration: none;
+}
+.bscUl1 li span{
+  float: right;
+  font-size:16px;
+  color:#999;
+}
