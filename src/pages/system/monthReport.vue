@@ -5,22 +5,25 @@
           <p class="col-xs-12 col-md-6">{{ name }}</p>
           <crumbs-con class="col-xs-12 col-md-6 text-right"></crumbs-con>
       </div>
-      <mes-con :mId='mId' :data = 'data'></mes-con>
+      <text-list :data='data' :toName='toName'></text-list>
     </div>
+    <!-- 详情页 -->
+    <router-view></router-view>
 </div>
 </template>
 
 <script>
 import crumbsCon from '@/components/crumbs'
-import mesCon from '@/components/mesCon'
+import textList from '@/components/textList'
 import axios from 'axios'
 
 export default{
   data() {
     return {
-      name: '交通',
-      routeNum: '',
+      name: '监测评估（月报）',
       data: '',
+      routeNum: '',
+      toName: 'monthReport'//详情页路由name值
     }
   },
   created() {
@@ -29,7 +32,7 @@ export default{
   mounted() {
     setTimeout(()=>{
       const ids = this.mId;
-      axios.get('/applicable/content/'+ids+'').then(
+      axios.get('/system/listEvaluation').then(
         res => {
           if(res.data.code == 0){
             this.data = res.data.data;
@@ -40,14 +43,7 @@ export default{
   },
   components: {
     crumbsCon,
-    mesCon
-  },
-  props: {
-    mId: {
-      type: String,
-      default: '',
-      required: true
-    }
+    textList
   }
 }
 </script>

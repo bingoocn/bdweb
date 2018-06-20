@@ -17,7 +17,8 @@
                           </div>
                       </div>
                       <div class="articleContent">
-                          {{ data.content }}
+                          <!-- {{ data.content }} -->
+                          <editor-modul :data = 'data'></editor-modul>
                       </div>
                   </div>
               </div>
@@ -28,6 +29,7 @@
 
 <script>
 import crumbsCon from '@/components/crumbs'
+import editorModul from '@/components/editor'
 
 export default {
   data() {
@@ -36,9 +38,10 @@ export default {
     }
   },
   components: {
-    crumbsCon
+    crumbsCon,
+    editorModul
   },
-  created() {
+  mounted() {
     const lId = this.$route.params.date.split('_')[1];
     const data = {
         title: '中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
@@ -46,7 +49,7 @@ export default {
         author: '王彬羽',
         editor: '陈彪',
         relTime: '2018-04-27',
-        content: '<p>2018年4月24日至25日，第十二届莫斯科国际导航论坛在俄罗斯莫斯科举行。应俄罗斯国家航天集团邀请，中国卫星导航系统管理办公室及其国际合作中心、中俄兼容与互操作工作组、中俄联合应用工作组代表参加了本次论坛。</p><div class="text-center"><img src="@/assets/imgs/W020180427403091077552.jpg"></div>'
+        content: '<p>2018年4月24日至25日，第十二届莫斯科国际导航论坛在俄罗斯莫斯科举行。应俄罗斯国家航天集团邀请，中国卫星导航系统管理办公室及其国际合作中心、中俄兼容与互操作工作组、中俄联合应用工作组代表参加了本次论坛。</p><div class="text-center"><img src="http://localhost:8080/static/img/bigDipper_indexBanner_171123_01.70b758d.jpg"></div>'
     };
     this.data = data;
   }

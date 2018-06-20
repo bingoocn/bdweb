@@ -17,17 +17,17 @@ import crumbsCon from '@/components/crumbs'
 import textList from '@/components/textList'
 
 const data = [{
-  name: '第九届中国卫星导航学术年会在哈尔滨召开',
-  time: '2018-04-27',
-  lId: '111'
+  title: '第九届中国卫星导航学术年会在哈尔滨召开',
+  evaluateDate: '2018-04-27',
+  fguid: '111'
 },{
-  name: '人民日报：自主创新确保北斗系统稳定运行',
-  time: '2018-04-26',
-  lId: '112'
+  title: '人民日报：自主创新确保北斗系统稳定运行',
+  evaluateDate: '2018-04-26',
+  fguid: '112'
 },{
-  name: '关于开展2018年度北斗专项标准项目申报的通知',
-  time: '2018-04-25',
-  lId: '113'
+  title: '关于开展2018年度北斗专项标准项目申报的通知',
+  evaluateDate: '2018-04-25',
+  fguid: '113'
 }];
 
 export default{

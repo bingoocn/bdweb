@@ -13,7 +13,7 @@
     </div>
     <div :class = "[ routeNum == 3 ? 'col-sm-12' : 'col-sm-10' ]">
       <!-- 传递二级菜单ID -->
-      <router-view></router-view>
+      <router-view :mId='mId'></router-view>
     </div>
   </div>
 </div>
@@ -27,13 +27,12 @@ export default{
   data(){
     return {
       menuList: menuList,
-      // mId: '',
+      mId: '',
       routeNum: ''
     }
   },
   created() {
     this.routeNum = this.$route.matched.length;//根据路由判断当前位置，控制页面结构
-    console.log(this.routeNum)
   },
   props :{
     msg : {//获取二级菜单信息
@@ -42,15 +41,26 @@ export default{
       required : true
     }
   },
-  // updated : function(){
-  //   var navLi = this.$refs.Navli;
-  //   for(var i=0; i<navLi.length; i++){
-  //
-  //     if($($(navLi[i]).find(".active")).attr("mId")){
-  //       this.mId = $($(navLi[i]).find(".active")).attr("mId");//设置二级菜单ID
-  //     }
-  //   }
-  // },
+  methods: {
+    getmId () {
+      var navLi = this.$refs.Navli;
+      for(var i=0; i<navLi.length; i++){
+
+        if($($(navLi[i]).find(".active")).attr("mId")){
+          this.mId = $($(navLi[i]).find(".active")).attr("mId");//设置二级菜单ID
+        }
+      }
+    }
+  },
+  updated : function(){
+    var navLi = this.$refs.Navli;
+    for(var i=0; i<navLi.length; i++){
+
+      if($($(navLi[i]).find(".active")).attr("mId")){
+        this.mId = $($(navLi[i]).find(".active")).attr("mId");//设置二级菜单ID
+      }
+    }
+  },
   components: {
     comView
   }

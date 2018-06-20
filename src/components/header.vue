@@ -23,11 +23,6 @@ import HeaderNav from './nav.vue'
 export default {
   components: {
     HeaderNav
-  },
-  methods: {
-    // goBack () {
-    //   window.history.back();
-    // }
   }
 }
 </script>

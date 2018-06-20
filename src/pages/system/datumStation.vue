@@ -18,7 +18,7 @@ import axios from 'axios'
 export default{
   data() {
     return {
-      name: '交通',
+      name: '基准站分布',
       routeNum: '',
       data: '',
     }
@@ -29,7 +29,7 @@ export default{
   mounted() {
     setTimeout(()=>{
       const ids = this.mId;
-      axios.get('/applicable/content/'+ids+'').then(
+      axios.get('/system/content/'+ids+'').then(
         res => {
           if(res.data.code == 0){
             this.data = res.data.data;

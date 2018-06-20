@@ -4,6 +4,13 @@ import App from './App.vue'
 import VueRouter from 'vue-router' // 引入路由
 import router from './router' //引入router文件夹下定义的路由，自己找.js文件中的路由
 import store from './store' // 存储数据和管理数据方法的仓库
+import '../mock/index' //mock数据
+import  VueQuillEditor from 'vue-quill-editor' // 富文本编辑器
+import 'quill/dist/quill.core.css' //核心样式
+// import 'quill/dist/quill.snow.css' //整体皮肤样式，只读模式下无需引用
+// import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor) //全局使用富文本编辑器
 
 // 引入第三方资源
 import 'bootstrap/dist/css/bootstrap.min.css'

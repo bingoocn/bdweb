@@ -18,7 +18,7 @@ import axios from 'axios'
 export default{
   data() {
     return {
-      name: '交通',
+      name: '气象',
       routeNum: '',
       data: '',
     }

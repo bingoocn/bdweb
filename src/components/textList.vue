@@ -2,10 +2,10 @@
   <div class="listBody">
       <ul class="listUl">
           <li v-for="(item, i) in data">
-            <router-link :to="{name:toName, params:{month:(item.time.replace(/[^\d]/g,'')).slice(0,6), date:'m'+item.time.replace(/[^\d]/g,'')+'_'+item.lId}}"  target="_blank">
-              {{ item.name }}
+            <router-link :to="{name:toName, params:{month:(item.evaluateDate.replace(/[^\d]/g,'')).slice(0,6), date:'m'+item.evaluateDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
+              {{ item.title }}
             </router-link>
-            <span>{{ item.time }}</span>
+            <span>{{ item.evaluateDate }}</span>
           </li>
       </ul>
       <div class="text-right">
@@ -35,7 +35,6 @@
 export default {
   props: {
     data:{
-      type: Array,
       default: '',
       required: true
     },

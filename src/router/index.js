@@ -13,18 +13,35 @@ import textCon from '@/components/textCon'
 
 import systemModul from '@/pages/system'
 import system from '@/pages/system/system'
+import datumStation from '@/pages/system/datumStation'
+import dataProce from '@/pages/system/dataProce'
+import monthReport from '@/pages/system/monthReport'
+import officialDownload from '@/pages/system/officialDownload'
 
 import applicationModul from '@/pages/application'
 import application from '@/pages/application/application'
+import mapping from '@/pages/application/mapping'
+import weather from '@/pages/application/weather'
+import earthquake from '@/pages/application/earthquake'
+import landResources from '@/pages/application/landResources'
+import civil from '@/pages/application/civil'
 
 import policyModul from '@/pages/policy'
 import policy from '@/pages/policy/policy'
+import standard from '@/pages/policy/standard'
+import regulations from '@/pages/policy/regulations'
+
 
 import resourceModul from '@/pages/resource'
 import resource from '@/pages/resource/resource'
+import bd_pic from '@/pages/resource/bd_pic'
+import bd_video from '@/pages/resource/bd_video'
+import bd_introduce from '@/pages/resource/bd_introduce'
 
 import helpModul from '@/pages/help'
 import help from '@/pages/help/help'
+import contactus from '@/pages/help/contactus'
+import friendship_link from '@/pages/help/friendship_link'
 
 Vue.use(VueRouter)
 const router =  new VueRouter({
@@ -103,7 +120,62 @@ const router =  new VueRouter({
         {
           path: 'system',
           name: '系统介绍',
-          component: system
+          component: system,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'system',
+              component: textCon
+            },
+          ]
+        },
+        {
+          path: 'datumStation',
+          name: '基准站分布',
+          component: datumStation,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'datumStation',
+              component: textCon
+            },
+          ]
+        },
+        {
+          path: 'dataProce',
+          name: '国家数据综合处理系统',
+          component: dataProce,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'dataProce',
+              component: textCon
+            },
+          ]
+        },
+        {
+          path: 'monthReport',
+          name: '监测评估（月报）',
+          component: monthReport,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'monthReport',
+              component: textCon
+            },
+          ]
+        },
+        {
+          path: 'officialDownload',
+          name: '官方下载',
+          component: officialDownload,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'officialDownload',
+              component: textCon
+            },
+          ]
         }
       ]
     },{
@@ -114,8 +186,71 @@ const router =  new VueRouter({
         {
           path: 'application',
           name: '交通',
-          component: application
-        }
+          component: application,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'application',
+              component: textCon
+            },
+          ]
+        },
+        {
+          path: 'mapping',
+          name: '测绘',
+          component: mapping,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'mapping',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'weather',
+          name: '气象',
+          component: weather,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'weather',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'earthquake',
+          name: '地震',
+          component: earthquake,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'earthquake',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'landResources',
+          name: '国土资源',
+          component: landResources,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'landResources',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'civil',
+          name: '高精度民用',
+          component: civil,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'civil',
+              component: textCon
+            },
+          ]
+        },
       ]
     },{
       path: '/policyModul',
@@ -125,7 +260,36 @@ const router =  new VueRouter({
         {
           path: 'policy',
           name: '标准',
-          component: policy
+          component: policy,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'policy',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'standard',
+          name: '政策法规',
+          component: standard,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'standard',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'regulations',
+          name: '知识产权',
+          component: regulations,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'regulations',
+              component: textCon
+            },
+          ]
         }
       ]
     },{
@@ -136,7 +300,47 @@ const router =  new VueRouter({
         {
           path: 'resource',
           name: '北斗科普',
-          component: resource
+          component: resource,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'resource',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'bd_pic',
+          name: '北斗图片',
+          component: bd_pic,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'bd_pic',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'bd_video',
+          name: '北斗视频',
+          component: bd_video,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'bd_video',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'bd_introduce',
+          name: '兵器介绍',
+          component: bd_introduce,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'bd_introduce',
+              component: textCon
+            },
+          ]
         }
       ]
     },{
@@ -147,7 +351,36 @@ const router =  new VueRouter({
         {
           path: 'help',
           name: '常见问题',
-          component: help
+          component: help,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'help',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'contactus',
+          name: '联系我们',
+          component: contactus,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'contactus',
+              component: textCon
+            },
+          ]
+        },{
+          path: 'friendship_link',
+          name: '友情链接',
+          component: friendship_link,
+          children:[
+            {
+              path: ':month/:date.html',
+              name: 'friendship_link',
+              component: textCon
+            },
+          ]
         }
       ]
     }

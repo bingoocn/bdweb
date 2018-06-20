@@ -1,11 +1,11 @@
 <template lang="html">
   <div>
     <ul class="row indexNav no-margin-left no-margin-right">
-      <li class="Navli" v-for="(list, i) in menuList" @click="setVal(list.name)" ref="Navli">
+      <li class="Navli" v-for="(list, i) in menuList" @click="setVal(list.name); changeShow()" ref="Navli">
         <router-link :to="list.path" class="Navlia" :mId="list.mId" activeClass="active" exact>{{ list.name }}</router-link>
         <div class="dropdownMenu" v-if="list.children">
             <ul>
-              <li v-for="(childList, i) in list.children" ref="Navli">
+              <li v-for="(childList, i) in list.children" ref="Navli" @click='changeShow'>
                 <router-link :to="childList.path" :mId="childList.mId" activeClass="active" exact>
                   {{ childList.name }}
                 </router-link>
@@ -29,9 +29,13 @@ export default {
       liName: ''
     }
   },
+  inject: ['reload'],//注入reload方法
   methods:{
     setVal(val) {
       this.liName = val;
+    },
+    changeShow() {//目前在未进行开发的模块下会卡死
+      this.reload();
     }
   },
   mounted : function(){//设置当前所处二级菜单位置信息

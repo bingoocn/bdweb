@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div v-if='routeShow'>
     <div class="fixedHeader">
         <div class="container">
             <span class="nowTime">2018年05月03日&nbsp;&nbsp;星期四</span>
@@ -23,6 +23,24 @@ export default {
   components: {
     HomeHeader,
     CommonFooter,
+  },
+  provide() {//在全局提供reload依赖，根据情境刷新页面
+    return {
+      reload: this.reload
+    }
+  },
+  data() {
+    return {
+      routeShow: true//根据该值控制刷新
+    }
+  },
+  methods: {
+    reload() {//定义reload方法
+      this.routeShow = false
+      this.$nextTick(function(){
+        this.routeShow = true
+      })
+    }
   }
 }
 </script>
