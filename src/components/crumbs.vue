@@ -1,8 +1,8 @@
 <template lang="html">
     <ol class="breadcrumb">
-        <li><router-link :to="{ path:'/home' }"><i class="glyphicon glyphicon-home"></i> 首页</router-link></li>
-        <li class="active">{{ firstMenu }}</li>
-        <li class="active">{{ secondMenu }}</li>
+        <li @click="changeShow()"><router-link :to="{ path:'/home' }"><i class="glyphicon glyphicon-home"></i> 首页</router-link></li>
+        <li @click="changeShow()"><router-link :to="{ path:firstPath }">{{ firstMenu }}</router-link></li>
+        <li @click="changeShow()"><router-link :to="{ path:secondPath }">{{ secondMenu }}</router-link></li>
     </ol>
 </template>
 
@@ -11,13 +11,23 @@
 export default {
   data() {
     return {
-      firstMenu: '' ,
-      secondMenu: ''
+      firstMenu: '',
+      firstPath: '',
+      secondMenu: '',
+      secondPath: ''
     }
   },
   created() {
     this.firstMenu = this.$route.matched[0].name;
+    this.firstPath = this.$route.matched[0].path + this.$route.matched[0].path.split('Modul')[0];
     this.secondMenu = this.$route.matched[1].name;
+    this.secondPath = this.$route.matched[1].path;
+  },
+  inject: ['reload'],//注入reload方法
+  methods:{
+    changeShow() {//目前在未进行开发的模块下会卡死
+      this.reload();
+    }
   },
 }
 </script>
@@ -36,6 +46,10 @@ export default {
     margin-bottom: 8px;
     li {
       display: inline-block;
+      a{
+        text-decoration: none;
+        color: #777;
+      }
     }
     li.active {
       color: #777;

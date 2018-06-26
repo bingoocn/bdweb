@@ -4,26 +4,26 @@ const menuList = [{
   mId: '1'
 },{
   name: '新闻',
-  path: '/news/newsCenter',
+  path: '/newsModul/news',
   mId: '21',
   children: [
     {
-      path: '/news/newsCenter',
+      path: '/newsModul/news',
       name: '新闻中心',
       mId: '21'
     },
     {
-      path: '/news/official_notice',
+      path: '/newsModul/official_notice',
       name: '官方公告',
       mId: '22'
     },
     {
-      path: '/news/industry_dynamics',
+      path: '/newsModul/industry_dynamics',
       name: '行业动态',
       mId: '23'
     },
     {
-      path: '/news/international_dynamics',
+      path: '/newsModul/international_dynamics',
       name: '国际动态',
       mId: '24'
     }
@@ -139,7 +139,7 @@ const menuList = [{
     {
       path: '/resourceModul/bd_introduce',
       name: '兵器介绍',
-      mId: '64'
+      mId: '01'
     }
   ]
 },{
@@ -150,7 +150,7 @@ const menuList = [{
     {
       path: '/helpModul/help',
       name: '常见问题',
-      mId: '71'
+      mId: '01'
     },
     {
       path: '/helpModul/contactus',

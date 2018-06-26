@@ -41,21 +41,13 @@ export default{
       required : true
     }
   },
-  methods: {
-    getmId () {
-      var navLi = this.$refs.Navli;
-      for(var i=0; i<navLi.length; i++){
-
-        if($($(navLi[i]).find(".active")).attr("mId")){
-          this.mId = $($(navLi[i]).find(".active")).attr("mId");//设置二级菜单ID
-        }
-      }
-    }
-  },
   updated : function(){
     var navLi = this.$refs.Navli;
-    for(var i=0; i<navLi.length; i++){
 
+    if(navLi == undefined){
+      return;
+    }
+    for(var i=0; i<navLi.length; i++){
       if($($(navLi[i]).find(".active")).attr("mId")){
         this.mId = $($(navLi[i]).find(".active")).attr("mId");//设置二级菜单ID
       }

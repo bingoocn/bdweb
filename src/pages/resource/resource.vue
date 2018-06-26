@@ -1,24 +1,60 @@
 <template lang="html">
-  <div class="">
-    这里是{{ name }}页
-  </div>
-
+  <div>
+    <div class="listCon" v-if="routeNum != 3">
+      <div class="row listHeader">
+          <p class="col-xs-12 col-md-6">{{ name }}</p>
+          <crumbs-con class="col-xs-12 col-md-6 text-right"></crumbs-con>
+      </div>
+      <text-list :data='data' :toName='toName'></text-list>
+    </div>
+    <!-- 详情页 -->
+    <router-view></router-view>
+</div>
 </template>
 
 <script>
-  export default{
-    data() {
-      return {
-        name: '特色内容'
-      }
+import crumbsCon from '@/components/crumbs'
+import textList from '@/components/textList'
+import axios from 'axios'
+
+export default{
+  data() {
+    return {
+      name: '北斗科普',
+      data: '',
+      routeNum: '',
+      toName: 'resource'//详情页路由name值
     }
+  },
+  created() {
+    this.routeNum = this.$route.matched.length;//  根据路由判断当前所处位置，控制详情页
+  },
+  mounted() {
+    setTimeout(()=>{
+      const ids = this.mId;
+      axios.get('/resourceModul/resource').then(
+        res => {
+          if(res.data.code == 0){
+            this.data = res.data.data;
+          }
+        }
+      )
+    },5)
+  },
+  components: {
+    crumbsCon,
+    textList
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  html,body{
-    div{
-      color: white;
-    }
+.listHeader {
+  p {
+      display: inline-block;
+      font-size: 24px;
+      color: #333333;
+      font-weight: bold;
   }
+}
 </style>

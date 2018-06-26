@@ -43,6 +43,9 @@ export default {
     for(var i=0; i<navLi.length; i++){
       if($($(navLi[i]).find(".active")).parents("li.Navli").find(".Navlia").html()){
         this.liName = $($(navLi[i]).find(".active")).parents("li.Navli").find(".Navlia").html();
+
+      }else{
+        this.liName = this.$route.matched[0].name; // 解决分页下刷新页面问题
       }
     }
   }

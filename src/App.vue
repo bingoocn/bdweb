@@ -2,8 +2,8 @@
   <div v-if='routeShow'>
     <div class="fixedHeader">
         <div class="container">
-            <span class="nowTime">2018年05月03日&nbsp;&nbsp;星期四</span>
-            <span class="registerAndLogin">欢迎您，xxx</span>
+            <span class="nowTime">{{ dates }}&nbsp;&nbsp;{{ week }}</span>
+            <span class="registerAndLogin">欢迎您，{{ user }}</span>
         </div>
     </div>
     <div class="indexBg"><img src="@/assets/imgs/bigDipper_indexBanner_171123_01.jpg"></div>
@@ -31,7 +31,10 @@ export default {
   },
   data() {
     return {
-      routeShow: true//根据该值控制刷新
+      routeShow: true,//根据该值控制刷新
+      dates: '',
+      week: '',
+      user: '游客xxx'
     }
   },
   methods: {
@@ -41,6 +44,17 @@ export default {
         this.routeShow = true
       })
     }
+  },
+  mounted() {
+    const dates = new Date();
+    const year = dates.getFullYear();
+    const month = dates.getMonth() + 1;
+    const date = dates.getDate();
+    const week = dates.getDay();
+    const weeks = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][week];
+
+    this.dates = year+'年'+month+'月'+date+'日';
+    this.week = weeks;
   }
 }
 </script>
@@ -52,10 +66,6 @@ html,body{
   height: 100%;
   overflow: hidden;
   .fixedHeader {
-    // position: fixed;
-    // top: 0;
-    // right: 0;
-    // left: 0;
     width: 100%;
     height: 36px;
     line-height: 36px;

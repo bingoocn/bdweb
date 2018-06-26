@@ -3,22 +3,21 @@ import VueRouter from 'vue-router'
 
 //引入组件
 import home from '@/pages/home'
-import news from '@/pages/news'
-import newsCenter from '@/pages/newsCenter/newsCenter'
+import newsModul from '@/components/contentView'
+import news from '@/pages/newsCenter/newsCenter'
 import official_notice from '@/pages/newsCenter/official_notice'
 import industry_dynamics from '@/pages/newsCenter/industry_dynamics'
 import international_dynamics from '@/pages/newsCenter/international_dynamics'
-// import conView from '@/pages/newsCenter/conView'
 import textCon from '@/components/textCon'
 
-import systemModul from '@/pages/system'
+import systemModul from '@/components/contentView'
 import system from '@/pages/system/system'
 import datumStation from '@/pages/system/datumStation'
 import dataProce from '@/pages/system/dataProce'
 import monthReport from '@/pages/system/monthReport'
 import officialDownload from '@/pages/system/officialDownload'
 
-import applicationModul from '@/pages/application'
+import applicationModul from '@/components/contentView'
 import application from '@/pages/application/application'
 import mapping from '@/pages/application/mapping'
 import weather from '@/pages/application/weather'
@@ -26,19 +25,18 @@ import earthquake from '@/pages/application/earthquake'
 import landResources from '@/pages/application/landResources'
 import civil from '@/pages/application/civil'
 
-import policyModul from '@/pages/policy'
+import policyModul from '@/components/contentView'
 import policy from '@/pages/policy/policy'
 import standard from '@/pages/policy/standard'
 import regulations from '@/pages/policy/regulations'
 
-
-import resourceModul from '@/pages/resource'
+import resourceModul from '@/components/contentView'
 import resource from '@/pages/resource/resource'
 import bd_pic from '@/pages/resource/bd_pic'
 import bd_video from '@/pages/resource/bd_video'
 import bd_introduce from '@/pages/resource/bd_introduce'
 
-import helpModul from '@/pages/help'
+import helpModul from '@/components/contentView'
 import help from '@/pages/help/help'
 import contactus from '@/pages/help/contactus'
 import friendship_link from '@/pages/help/friendship_link'
@@ -59,18 +57,18 @@ const router =  new VueRouter({
       name: '首页',
       component: home
     },{
-      path: '/news',
+      path: '/newsModul',
       name: '新闻',
-      component: news,
+      component: newsModul,
       children: [
         {
-          path: 'newsCenter',
+          path: 'news',
           name: '新闻中心',
-          component: newsCenter,
+          component: news,
           children:[
             {
               path: ':month/:date.html',
-              name: 'newsCenter',
+              name: 'news',
               component: textCon
             },
           ]
@@ -345,7 +343,7 @@ const router =  new VueRouter({
       ]
     },{
       path: '/helpModul',
-      name: 'helpModul帮助',
+      name: '帮助',
       component: helpModul,
       children: [
         {
@@ -373,14 +371,7 @@ const router =  new VueRouter({
         },{
           path: 'friendship_link',
           name: '友情链接',
-          component: friendship_link,
-          children:[
-            {
-              path: ':month/:date.html',
-              name: 'friendship_link',
-              component: textCon
-            },
-          ]
+          component: friendship_link
         }
       ]
     }

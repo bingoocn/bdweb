@@ -1,37 +1,21 @@
 <template lang="html">
   <div class="listBody">
       <ul class="listUl">
-          <li v-for="(item, i) in data">
-            <router-link :to="{name:toName, params:{month:(item.evaluateDate.replace(/[^\d]/g,'')).slice(0,6), date:'m'+item.evaluateDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
+          <li v-for="(item, i) in data" @click="pushInterface()">
+            <router-link :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
               {{ item.title }}
             </router-link>
-            <span>{{ item.evaluateDate }}</span>
+            <span>{{ item.publishDate }}</span>
           </li>
       </ul>
-      <div class="text-right">
-          <nav aria-label="Page navigation">
-              <ul class="pagination">
-                  <li>
-                      <a href="#" aria-label="Previous">
-                          <span aria-hidden="true">«</span>
-                      </a>
-                  </li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">...</a></li>
-                  <li><a href="#">10</a></li>
-                  <li>
-                      <a href="#" aria-label="Next">
-                          <span aria-hidden="true">»</span>
-                      </a>
-                  </li>
-              </ul>
-          </nav>
-      </div>
+      <page-list></page-list>
   </div>
 </template>
 
 <script>
+import pageList from '@/components/pageList'
+
 export default {
   props: {
     data:{
@@ -42,7 +26,20 @@ export default {
       type: String,
       default: '',
       required: true
+    },
+    interfaces:{
+      type: String,
+      default: '',
+      required: true
     }
+  },
+  methods: {
+    pushInterface() {
+      sessionStorage.setItem("interfaces",this.interfaces);
+    }
+  },
+  components: {
+    pageList
   }
 }
 </script>

@@ -29,7 +29,7 @@ export default {
 
 <style lang="scss" scoped>
   .logoBox {
-    margin-top: 48px;
+    margin-top: 12px;
   }
   .margin-bottom-10 {
     margin-bottom: 10px;

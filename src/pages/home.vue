@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -33,7 +33,7 @@
   import VideosBox from '../components/videos'
   import CharacterBox from '../components/character'
   import NoticeBox from '../components/notice'
-  
+
 
   export default{
     data() {

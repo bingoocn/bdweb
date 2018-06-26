@@ -99,7 +99,7 @@ export default {
 	    margin: 0 5px;
 	    font-size: 16px;
 	    line-height: 32px;
-	    color:#fff;	 
+	    color:#fff;
 	    white-space:nowrap;
 	    overflow:hidden;
 	    text-overflow:ellipsis;

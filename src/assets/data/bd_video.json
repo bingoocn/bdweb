@@ -1,0 +1,26 @@
+[{
+  "createtime": null,
+  "creator": "",
+  "depend": "3",
+  "extend": "",
+  "fguid": "24",
+  "fileType": "02",
+  "title": "我的视频啊",
+  "secretLevel": "02",
+  "size": 2000,
+  "status": "1",
+  "updateor": "",
+  "updatetime": {
+    "date": 19,
+    "day": 2,
+    "hours": 17,
+    "minutes": 18,
+    "month": 5,
+    "nanos": 0,
+    "seconds": 17,
+    "time": 1529399897000,
+    "timezoneOffset": -480,
+    "year": 118
+  },
+  "url": "http://localhost:8080/static/img/bigDipper_indexBanner_171123_01.70b758d.jpg"
+}]
