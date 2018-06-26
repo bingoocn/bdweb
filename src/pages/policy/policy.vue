@@ -5,7 +5,7 @@
           <p class="col-xs-12 col-md-6">{{ name }}</p>
           <crumbs-con class="col-xs-12 col-md-6 text-right"></crumbs-con>
       </div>
-      <text-list :data='data' :toName='toName'></text-list>
+      <text-list :data='data' :toName='toName' :interfaces='interfaces'></text-list>
     </div>
     <!-- 详情页 -->
     <router-view></router-view>
@@ -23,23 +23,38 @@ export default{
       name: '标准',
       data: '',
       routeNum: '',
-      toName: 'policy'//详情页路由name值
+      toName: 'policy',
+      interfaces: '/unified/content'
     }
   },
   created() {
     this.routeNum = this.$route.matched.length;//  根据路由判断当前所处位置，控制详情页
+    this.fetchData();
   },
-  mounted() {
-    setTimeout(()=>{
-      const ids = this.mId;
-      axios.get('/policyModul/policy').then(
-        res => {
-          if(res.data.code == 0){
-            this.data = res.data.data;
+  methods: {
+    fetchData() {
+      setTimeout(()=>{
+        let ids = this.mId;
+        let pageSize = this.$route.query.pageSize == undefined ? 1 : this.$route.query.pageSize;
+        axios.get('/policyModul/policy').then(
+          res => {
+            if(res.data.code == 0){
+              this.data = res.data.data;
+            }
           }
-        }
-      )
-    },5)
+        )
+      }, 5)
+    }
+  },
+  watch: {
+    '$route': 'fetchData'
+  },
+  props: {
+    mId: {
+      type: String,
+      default: '',
+      required: true
+    }
   },
   components: {
     crumbsCon,
