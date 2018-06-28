@@ -5,7 +5,7 @@
           <p class="col-xs-12 col-md-6">{{ name }}</p>
           <crumbs-con class="col-xs-12 col-md-6 text-right"></crumbs-con>
       </div>
-      <media-list :data='data' :toName='toName'></media-list>
+      <media-list :data='data' :toName='toName' :interfaces='interfaces'></media-list>
     </div>
     <!-- 详情页 -->
     <router-view></router-view>
@@ -23,23 +23,38 @@ export default{
       name: '北斗图片',
       data: '',
       routeNum: '',
-      toName: 'bd_pic'//详情页路由name值
+      toName: 'bd_pic',
+      interfaces: '/unified/content'
     }
   },
   created() {
     this.routeNum = this.$route.matched.length;//  根据路由判断当前所处位置，控制详情页
+    this.fetchData();
   },
-  mounted() {
-    setTimeout(()=>{
-      const ids = this.mId;
-      axios.get('/resourceModul/bd_pic').then(
-        res => {
-          if(res.data.code == 0){
-            this.data = res.data.data;
+  methods: {
+    fetchData() {
+      setTimeout(()=>{
+        let ids = this.mId;
+        let pageSize = this.$route.query.pageSize == undefined ? 1 : this.$route.query.pageSize;
+        axios.get('/resourceModul/bd_pic').then(
+          res => {
+            if(res.data.code == 0){
+              this.data = res.data.data;
+            }
           }
-        }
-      )
-    },5)
+        )
+      }, 5)
+    }
+  },
+  watch: {
+    '$route': 'fetchData'
+  },
+  props: {
+    mId: {
+      type: String,
+      default: '',
+      required: true
+    }
   },
   components: {
     crumbsCon,

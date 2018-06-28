@@ -3,25 +3,16 @@
 	    <div class="col-xs-12">
 	        <div id="picsShow" class="carousel slide" data-ride="carousel">
 	            <ol class="carousel-indicators">
-	                <li data-taret="picsShow" data-slide-to="0" class="active"></li>
-	                <li data-taret="picsShow" data-slide-to="1"></li>
-	                <li data-taret="picsShow" data-slide-to="2"></li>
+	                <li data-taret="picsShow" :data-slide-to="i" :class = "[ i == 0 ? 'active' : '' ]" v-for="(item, i) in data"></li>
 	            </ol>
 
 	            <div class="carousel-inner" role="listbox">
-	                <div class="item active">
-	                    <a><img src="../assets/imgs/W020171224607166636546.jpg" alt=""></a>
-	                    <div class="carousel-caption">北斗卫星导航系统介绍</div>
-	                </div>
-
-	                <div class="item">
-	                    <a><img src="../assets/imgs/W020180428427723316658.png" alt=""></a>
-	                    <div class="carousel-caption">星历星座</div>
-	                </div>
-
-	                <div class="item">
-	                    <a><img src="../assets/imgs/W020180502373371243694.png" alt=""></a>
-	                    <div class="carousel-caption">监测评估</div>
+									<div class="item" :class = "[ i == 0 ? 'active' : '' ]" v-for="(item, i) in data" @click="changeShow()">
+											<router-link :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+					            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank" activeClass="active" exact>
+												<img :src="item.imgUrl" alt="" data-holder-rendered="true">
+											</router-link>
+	                    <div class="carousel-caption">{{ item.title }}</div>
 	                </div>
 	            </div>
 
@@ -39,17 +30,48 @@
 </template>
 
 <script>
+import menuList from '@/assets/js/menuList.js'
+import axios from 'axios'
 
 export default {
   	data () {
     	return {
-
+				menuList: menuList,
+				data: ''
     	}
-  	}
+  	},
+		inject: ['reload'],
+		methods:{
+	    changeShow() {
+	      this.reload();
+	    }
+	  },
+		created() {
+			setTimeout(()=>{
+        axios.get('/index/pic_slide').then(
+          res => {
+            if(res.data.code == 0){
+              this.data = res.data.data.pic_data;
+							for(var k=0; k<this.data.length; k++){ // 处理数据并添加路由name
+								for(var i=0; i<menuList.length; i++){
+									if(menuList[i].children){
+										for(var j=0; j<menuList[i].children.length; j++){
+											if(this.data[k].name == menuList[i].children[j].name){
+												this.data[k].pathName = menuList[i].children[j].path.split("/")[2];
+											}
+										}
+									}
+								}
+							}
+            }
+          }
+        )
+      }, 5)
+		}
+
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 	/*轮播图样式*/
 	.carousel{

@@ -4,31 +4,41 @@
             <div class="panelBox">
                 <div class="panelHeader">
                     <i></i>
-                    <div><img src="../assets/imgs/bigDipper_171124_11.png">{{title}}</div>
-                    <router-link class="more" :to="linkto"></router-link>
+                    <div><img src="../assets/imgs/bigDipper_171124_11.png">新闻</div>
+                    <a @click="changeShow()"><router-link class="more" :to="{path:'/newsModul/news'}" target="_blank"></router-link></a>
                 </div>
                 <div class="panelBody">
                     <ul class="row newsTitle" role="tablist">
-                        <li class="col-sm-4 active"><a href="#newsCenter" role="tab" data-toggle="tab">新闻中心</a><i></i></li>
-                        <li class="col-sm-4"><a href="#hangyeDt" role="tab" data-toggle="tab">行业动态</a><i></i></li>
-                        <li class="col-sm-4"><a href="#guojidt" role="tab" data-toggle="tab">国际动态</a><i></i></li>
+                        <li class="col-sm-4" v-for="(item, i) in paneData" :class = "[ i == 0 ? 'active' : '' ]"><a :href="'#'+item.id" role="tab" :code="item.code" @click="getData($event)" data-toggle="tab">{{ item.name }}</a><i></i></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane" :class="{'active':news.isActive}" :id="news.id" v-for="(news,i) in newsList">
-                            <div class="row ulWithImg">
-                                <div class="col-sm-2 imgBox"><img :src="news.imgSrc"></div>
+                        <div class="tab-pane" v-for="(item, j) in paneData" :class = "[ j == 0 ? 'active' : '' ]" :id="item.id">
+                            <div class="row ulWithImg" v-for="(item, i) in newsList.slice(0, 1)">
+                                <div class="col-sm-2 imgBox"><img :src="newsList[0].imgSrc"></div>
                                 <div class="col-sm-10 textBox">
-                                    <p><router-link :title="news.articleTitle" :to="news.linkto">{{news.articleTitle}}</router-link></p>
-                                    <span>{{news.article}}<router-link :to="news.linkto">[详细]</router-link></span>
-                                    <div class="textTime">{{news.articleTime}}</div>
+                                    <p>
+																			<router-link :title="item.title" :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+													            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}" target="_blank">
+																				{{item.title}}{{ j }}
+																			</router-link>
+																		</p>
+                                    <span>
+																			{{item.content}}
+																			<router-link :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+													            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}" target="_blank">[详细]</router-link>
+																		</span>
+                                    <div class="textTime">{{item.publishDate}}</div>
                                 </div>
                             </div>
                             <ul class="bscUl1">
-                                <li v-for="(item,i) in news.itemsList">
-                                	<router-link :title="item.title" class="leftA" :to="item.linkto">{{item.title}}</router-link><span>{{item.time}}</span>
+                              <li v-for="(item,i) in newsList">
+                                <router-link :title="newsList[i==0?1:i].title" class="leftA" :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+																date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}" target="_blank">
+																	{{ newsList[i==0?1:i].title }}
+																</router-link><span>{{ newsList[i==0?1:i].publishDate }}</span>
                             	</li>
                             </ul>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,129 +47,61 @@
 </template>
 
 <script>
-import imgSrc1 from '@/assets/imgs/W020180427403091077552.jpg'
-import imgSrc2 from '@/assets/imgs/W020180330545713138884.png'
-import imgSrc3 from '@/assets/imgs/W020180330545713138884.png'
+import axios from 'axios'
+
+const paneData = [
+		{
+			"id": "news",
+			"code": "01",
+			"name": "新闻中心"
+		},{
+			"id": "industry_dynamics",
+			"code": "03",
+			"name": "行业动态"
+		},{
+			"id": "international_dynamics",
+			"code": "04",
+			"name": "国际动态"
+		}
+];
 
 export default {
   	data () {
     	return {
-    		title:'新闻',
-    		linkto:'/home',
-    		newsList:[
-    			{
-    				id:'newsCenter',
-    				isActive:true,
-    				imgSrc:imgSrc1,
-    				articleTitle:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    				article:'2018年4月24日至25日，第十二届莫斯科国际导航论坛在俄罗斯莫斯科举行在俄罗斯莫斯科举行在俄罗斯莫斯科举行。',
-    				artticleTime:'04-27',
-    				linkto:'/home',
-    				itemsList:[
-    					{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					}
-    				]
-    			},{
-    				id:'hangyeDt',
-    				isActive:false,
-    				imgSrc:imgSrc2,
-    				articleTitle:'国内开展首次基于低轨卫星导航增强在轨技术试验',
-    				article:'近日，中国科学院光电研究院开展了基于低轨道卫星的导航信号增强在轨技术试验',
-    				artticleTime:'03-30',
-    				linkto:'/home',
-    				itemsList:[
-    					{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					}
-    				]
-    			},{
-    				id:'guojidt',
-    				isActive:false,
-    				imgSrc:imgSrc3,
-    				articleTitle:'印度成功发射导航卫星IRNSS-1I',
-    				article:'近日，中国科学院光电研究院开展了基于低轨道卫星的导航信号增强在轨技术试验',
-    				artticleTime:'03-30',
-    				linkto:'/home',
-    				itemsList:[
-    					{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					},{
-    						title:'中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛',
-    						time:'04-18',
-    						linkto:'/home'
-    					}
-    				]
-    			}
-    		]
+    		newsList: "",
+				paneData: paneData
     	}
-  	}
+  	},
+		inject: ['reload'],
+		created() {
+			this.getData()
+		},
+		methods:{
+	    changeShow() {
+	      this.reload();
+	    },
+			getData(e) {
+				let code = "01";
+				if(e != undefined) code = e.target.attributes.code.nodeValue;
+				axios.get('/index/news_index/'+code+'').then(
+          res => {
+            if(res.data.code == 0){
+              this.newsList = res.data.data;
+							for(var i=0; i<paneData.length; i++){// 处理数据并添加路由name
+								for(var j=0; j<res.data.data.length; j++){
+									if(paneData[i].code == res.data.data[j].news_type){
+										res.data.data[j].pathName = paneData[i].id;
+									}
+								}
+							}
+            }
+          }
+        )
+			}
+	  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	@import '../assets/css/common.css';
 	.newsTitle{
@@ -172,15 +114,15 @@ export default {
 	border-bottom: none;
 	}
 	.newsTitle li{
-		padding: 0 5px; 
+		padding: 0 5px;
 		float: left;
 		position: relative;
 		height:35px;
 		text-align:center;
 		line-height: 35px;
 		font-size:18px;
-		color:#333; 
-		cursor: pointer; 
+		color:#333;
+		cursor: pointer;
 		transition: all .25s;
 		-moz-transition: all .25s;	/* Firefox 4 */
 		-webkit-transition: all .25s;	/* Safari å’Œ Chrome */
@@ -218,7 +160,7 @@ export default {
 	/*height: 139px;*/
 	border-bottom: 1px dashed #e6e6e6;
 	padding: 10px 0 18px;
-	overflow: hidden; 
+	overflow: hidden;
 	}
 	.ulWithImg .imgBox{
 		height: 100%;
@@ -229,7 +171,7 @@ export default {
 		height: 104px;
 		padding:2px;
 	    border:1px solid #0d5183;
-	} 
+	}
 	.ulWithImg .textBox{
 		position: relative;
 		height: 100%;

@@ -2,18 +2,21 @@
 	<div class="panelBox no-padding-bottom">
         <div class="panelHeader">
             <i></i>
-            <div><img src="../assets/imgs/bigDipper_171124_11.png">{{title}}</div>
-            <router-link class="more" :to="linkto"></router-link>
+            <div><img src="../assets/imgs/bigDipper_171124_11.png">特色内容</div>
+            <router-link class="more" :to="{path:'/resourceModul/resource'}" target="_blank"></router-link>
         </div>
         <div class="panelBody">
             <div class="row">
-               <div class="col-xs-12 col-sm-6" v-for="(item,i) in items">
+               <div class="col-xs-12 col-sm-6" v-for="(item,i) in data">
                    <div class="teseBox">
                         <div class="teseHeader">
-                            <router-link :to="linkto" :title="item.title">{{item.title}}</router-link>
+                            <router-link :title="item.title"
+														:to="{name:'resource', params:{month:''+item.updatetime.year+item.updatetime.month, date:'m'+item.updatetime.year+item.updatetime.month+item.updatetime.day+'_'+item.fguid}}"  target="_blank">
+															{{item.title}}
+														</router-link>
                         </div>
                         <div class="teseBody">
-                            <img :src="item.imgSrc">
+                            <img :src="item.url">
                         </div>
                    </div>
                </div>
@@ -23,29 +26,26 @@
 </template>
 
 <script>
-import imgSrc1 from '@/assets/imgs/W020180330545713138884.png'
-import imgSrc2 from '@/assets/imgs/W020180428427723316658.png'
+import axios from 'axios'
 
 export default {
   	data () {
     	return {
-    		title:'特色内容',
-            linkto:'/home',
-            items:[{
-                title:'什么是北斗地基增强系统?',
-                imgSrc:imgSrc1,
-                linkto:'/home'
-            },{
-                title:'北斗地基增强系统如何运作?',
-                imgSrc:imgSrc2,
-                linkto:'/home'
-            }]
+				data: ''
     	}
-  	}
+  	},
+		created() {
+			axios.get('/index/chart_con').then(
+				res => {
+					if(res.data.code == 0){
+						this.data = res.data.data;
+					}
+				}
+			)
+		}
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	@import '../assets/css/common.css';
 	.teseBox .teseHeader{

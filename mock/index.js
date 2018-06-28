@@ -16,6 +16,10 @@ import question from '../src/assets/data/question.json'
 import friendship_link from '../src/assets/data/friendship_link.json'
 
 import content from '../src/assets/data/content.json'
+
+import pic_slide from '../src/assets/data/pic_slide.json'
+import news_index from '../src/assets/data/news_index.json'
+import chart_con from '../src/assets/data/chart_con.json'
 // 匹配任意 /字母/字母/数字类型的接口 >> /^\/s([a-z]+\/){2,9}[0-9]+$/
 
 // 新闻列表
@@ -126,11 +130,25 @@ Mock.mock('/unified/content', {
   data: content
 })
 
+// 首页图片轮播
+Mock.mock('/index/pic_slide', {
+  code: 0,
+  codeMsg: '成功',
+  data: pic_slide
+})
+// 首页新闻、官方公告
+Mock.mock(/^\/index\/news_index\/[0-9]+$/,{
+  code: 0,
+  codeMsg: '成功',
+  data: news_index,
+})
 
-
-
-
-
+// 首页特色内容
+Mock.mock('/index/chart_con',{
+  code: 0,
+  codeMsg: '成功',
+  data: chart_con,
+})
 
 
 

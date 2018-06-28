@@ -1,72 +1,79 @@
 <template>
-	<div class="panelBox" v-bind:class="{ 'no-padding-top':hastop,'no-padding-bottom': hasbottom }">
+	<div class="panelBox" v-bind:class="{ 'no-padding-top':param.hastop,'no-padding-bottom': param.hasbottom }">
         <div class="panelHeader">
             <i></i>
-            <div><img src="../assets/imgs/bigDipper_171124_11.png">{{ title }}</div>
-            <a class="more" href="#" target="_blank"></a>
+            <div><img src="../assets/imgs/bigDipper_171124_11.png">{{ param.title }}</div>
+						<router-link class="more" :to="{path:path}" target="_blank"></router-link>
         </div>
         <div class="panelBody">
-            <ul class="bscUl1" v-for="(data, i) in data" v-if="data.name == title">
-                {{data.isA}}
-                <li v-for="(item, i) in data.data"><router-link :class="{'leftA':item.isA,'leftB':item.isB}" :to="item.path">{{ item.title }}</router-link><span v-show="item.isA">{{ item.time }}</span></li>
-                }
+            <ul class="bscUl1">
+                <li v-for="(item, i) in data.slice(0,param.slice)">
+									<router-link class="leftA" :to="{name:pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+									date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank" activeClass="active" exact>
+										{{ item.title }}
+									</router-link>
+									<span>{{ item.publish_date }}</span>
+								</li>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
+import menuList from '@/assets/js/menuList.js'
+import axios from 'axios'
 
 export default {
   	data () {
     	return {
-            data: [{
-                name: '官方公告',
-                data: [{
-                    title: '北斗地基增强系统如何运作？1',
-                    isA:true,
-                    path: '/home',
-                    time: '04-18'
-                },{
-                    title: '北斗地基增强系统如何运作？2',
-                    isA:true,
-                    path: '/home',
-                    time: '04-18'
-                },{
-                    title: '北斗地基增强系统如何运作？3',
-                    isA:true,
-                    path: '/home',
-                    time: '04-18'
-                }]
-            },{
-                name: '官方下载',
-                data: [{
-                    title: '关于开展2018年度北斗卫星导航领域国家标准申报工作的通知1',
-                    isA:true,
-                    path: '/home',
-                    time: '04-18'
-                },{
-                    title: '关于开展2018年度北斗卫星导航领域国家标准申报工作的通知2',
-                    isA:true,
-                    path: '/home',
-                    time: '04-18'
-                }]
-            },{
-                name: '常见问题',
-                data: [{
-                    title: '北斗项目的政府补助费用申请',
-                    isB:true,
-                    path: '/home'
-                }]
-            }]
-
+            data: '',
+						path: '',
+						pathName: '',
+						menuList: menuList
     	}
   	},
-    props:['title','hastop','hasbottom']
+		created() {
+			this.setPathName();
+			this.getData();
+		},
+		methods: {
+			setPathName() { //设置点击更多处路由路径
+				for(var i=0; i<menuList.length; i++){
+					if(menuList[i].children){
+						for(var j=0; j<menuList[i].children.length; j++){
+							if(menuList[i].children[j].name == this.param.title){
+								this.path = menuList[i].children[j].path;
+								this.pathName = menuList[i].children[j].path.split("/")[2];
+							}
+						}
+					}
+				}
+			},
+			getData() {
+				let code = this.param.code;
+				if(code){
+					axios.get('/index/news_index/'+code+'').then( //需要code传值
+	          res => {
+	            if(res.data.code == 0){
+								this.data = res.data.data;
+	            }
+	          }
+	        )
+				}else{
+					axios.get(this.param.path).then(
+	          res => {
+	            if(res.data.code == 0){
+								this.data = res.data.data;
+	            }
+	          }
+	        )
+				}
+			}
+		},
+    props:['param']
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	@import '../assets/css/common.css';
 </style>
