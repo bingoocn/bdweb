@@ -11,7 +11,8 @@
                    <div class="teseBox">
                         <div class="teseHeader">
                             <router-link :title="item.title"
-														:to="{name:'resource', params:{month:''+item.updatetime.year+item.updatetime.month, date:'m'+item.updatetime.year+item.updatetime.month+item.updatetime.day+'_'+item.fguid}}"  target="_blank">
+														:to="{name:'resource', params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+								            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}" target="_blank">
 															{{item.title}}
 														</router-link>
                         </div>

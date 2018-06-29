@@ -13,7 +13,7 @@
                               <div class="col-sm-6 col-md-3"><span>来源：{{ data.source }}</span></div>
                               <div class="col-sm-6 col-md-3"><span>作者：{{ data.author }}</span></div>
                               <div class="col-sm-6 col-md-3"><span>编辑：{{ data.editor }}</span></div>
-                              <div class="col-sm-6 col-md-3"><span>发布时间：{{ data.relTime }}</span></div>
+                              <div class="col-sm-6 col-md-3"><span>发布时间：{{ data.publishDate }}</span></div>
                           </div>
                       </div>
                       <div class="articleContent">

@@ -55,28 +55,27 @@ export default {
   methods:{
     getVal(e) { // 获取跳转值
       if(parseInt(e.target.value) > parseInt(this.countPage)){
-        this.intVal = parseInt(this.countPage);
+        this.currentPage = parseInt(this.countPage);
         return ;
       };
-      if(parseInt(e.target.value) < parseInt(this.intVal)){
-        this.intVal = parseInt(this.intVal);
+      if(parseInt(e.target.value) < parseInt(this.intVal) || e.target.value == ""){
+        this.currentPage = parseInt(this.intVal);
         return ;
       };
-      this.intVal = parseInt(e.target.value);
+      this.currentPage = parseInt(e.target.value);
     },
     goPage(e){ // 跳转
       if(parseInt(this.currentPage) > parseInt(this.countPage)){
         this.currentPage = parseInt(this.countPage);
         return ;
       };
-      if(parseInt(this.currentPage) < parseInt(this.intVal)){
+      if(parseInt(this.currentPage) < parseInt(this.intVal) || parseInt(this.currentPage) == ""){
         this.currentPage = parseInt(this.intVal);
         return ;
       };
-      this.currentPage = parseInt(this.intVal);
+      this.currentPage = parseInt(this.currentPage);
     },
     changeVal() { // 切换分页
-      // this.intVal = parseInt(this.currentPage);
       if(parseInt(this.$route.query.pageSize) == 0) {
         this.$router.push({path: this.path})
       }

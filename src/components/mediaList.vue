@@ -3,11 +3,13 @@
       <div class="row">
           <div class="col-sm-6 col-md-4 margin-bottom-10" v-for="(item, i) in data">
               <div class="listImgCon">
-                <router-link class="listImgBox" :to="{name:toName, params:{month:''+item.updatetime.year+item.updatetime.month, date:'m'+item.updatetime.year+item.updatetime.month+item.updatetime.day+'_'+item.fguid}}"  target="_blank">
+                <router-link class="listImgBox" :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+                date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
                   <img :src = "item.url">
                 </router-link>
                 <p class="listImgP">
-                  <router-link class="listImgBox" :to="{name:toName, params:{month:''+item.updatetime.year+item.updatetime.month, date:'m'+item.updatetime.year+item.updatetime.month+item.updatetime.day+'_'+item.fguid}}"  target="_blank">
+                  <router-link class="listImgBox" :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+                  date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
                     <i v-if="toName=='bd_video'" class="fa fa-play-circle-o"></i> {{ item.title }}
                   </router-link>
                 </p>

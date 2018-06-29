@@ -10,22 +10,22 @@ const menuList = [{
     {
       path: '/newsModul/news',
       name: '新闻中心',
-      mId: '21'
+      mId: '01'
     },
     {
       path: '/newsModul/official_notice',
       name: '官方公告',
-      mId: '22'
+      mId: '02'
     },
     {
       path: '/newsModul/industry_dynamics',
       name: '行业动态',
-      mId: '23'
+      mId: '03'
     },
     {
       path: '/newsModul/international_dynamics',
       name: '国际动态',
-      mId: '24'
+      mId: '04'
     }
   ]
 },{
@@ -51,12 +51,12 @@ const menuList = [{
     {
       path: '/systemModul/monthReport',
       name: '监测评估（月报）',
-      mId: '34'
+      mId: '04'
     },
     {
       path: '/systemModul/officialDownload',
       name: '官方下载',
-      mId: '35'
+      mId: '05'
     }
   ]
 },{
@@ -103,17 +103,17 @@ const menuList = [{
     {
       path: '/policyModul/policy',
       name: '标准',
-      mId: '51'
+      mId: '01'
     },
     {
       path: '/policyModul/standard',
       name: '政策法规',
-      mId: '52'
+      mId: '02'
     },
     {
       path: '/policyModul/regulations',
       name: '知识产权',
-      mId: '53'
+      mId: '03'
     }
   ]
 },{
@@ -124,22 +124,22 @@ const menuList = [{
     {
       path: '/resourceModul/resource',
       name: '北斗科普',
-      mId: '61'
+      mId: '01'
     },
     {
       path: '/resourceModul/bd_pic',
       name: '北斗图片',
-      mId: '62'
+      mId: '03'
     },
     {
       path: '/resourceModul/bd_video',
       name: '北斗视频',
-      mId: '63'
+      mId: '04'
     },
     {
       path: '/resourceModul/bd_introduce',
       name: '兵器介绍',
-      mId: '01'
+      mId: '02'
     }
   ]
 },{
@@ -155,12 +155,12 @@ const menuList = [{
     {
       path: '/helpModul/contactus',
       name: '联系我们',
-      mId: '72'
+      mId: '02'
     },
     {
       path: '/helpModul/friendship_link',
       name: '友情链接',
-      mId: '73'
+      mId: '03'
     }
   ]
 }];

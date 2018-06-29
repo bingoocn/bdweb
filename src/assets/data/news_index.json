@@ -3,7 +3,7 @@
     "fguid": "01",
     "news_type": "01",
     "title": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
-    "content": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
+    "summary": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
     "publishDate": "04-27",
     "imgSrc": "http://localhost:8080/static/img/bigDipper_indexBanner_171123_01.70b758d.jpg"
   },
@@ -11,7 +11,7 @@
     "fguid": "02",
     "news_type": "01",
     "title": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
-    "content": "",
+    "summary": "",
     "publishDate": "04-18",
     "imgSrc": ""
   },
@@ -19,7 +19,7 @@
     "fguid": "03",
     "news_type": "01",
     "title": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
-    "content": "",
+    "summary": "",
     "publishDate": "04-18",
     "imgSrc": ""
   },
@@ -27,7 +27,7 @@
     "fguid": "04",
     "news_type": "01",
     "title": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
-    "content": "",
+    "summary": "",
     "publishDate": "04-18",
     "imgSrc": ""
   },
@@ -35,7 +35,7 @@
     "fguid": "05",
     "news_type": "01",
     "title": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
-    "content": "",
+    "summary": "",
     "publishDate": "04-18",
     "imgSrc": ""
   },
@@ -43,7 +43,7 @@
     "fguid": "06",
     "news_type": "01",
     "title": "中国代表团赴俄罗斯参加第十二届莫斯科国际导航论坛",
-    "content": "",
+    "summary": "",
     "publishDate": "04-18",
     "imgSrc": ""
   }

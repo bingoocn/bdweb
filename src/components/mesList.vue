@@ -3,8 +3,8 @@
       <ul class="listUlPro">
           <li v-for = "(item, i) in data">
               <p class="proTitle">
-                <router-link :title="item.title" :to="{name:toName, params:{month:''+item.updatetime.year+item.updatetime.month,
-                  date:'m'+item.updatetime.year+item.updatetime.month+item.updatetime.day+'_'+item.fguid}}"  target="_blank">
+                <router-link :title="item.title" :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+                date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
                   {{ item.title }}
                 </router-link>
               </p>

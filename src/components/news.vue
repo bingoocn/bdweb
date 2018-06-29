@@ -23,7 +23,7 @@
 																			</router-link>
 																		</p>
                                     <span>
-																			{{item.content}}
+																			{{item.summary}}
 																			<router-link :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
 													            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}" target="_blank">[详细]</router-link>
 																		</span>
