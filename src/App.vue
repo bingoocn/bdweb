@@ -59,7 +59,6 @@ export default {
 }
 </script>
 
-<style lang="css" src="@/assets/css/common.css"></style>
 <style lang="scss" scoped>
 html,body{
   width: 100%;

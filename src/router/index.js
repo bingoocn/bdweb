@@ -9,6 +9,7 @@ import official_notice from '@/pages/newsCenter/official_notice'
 import industry_dynamics from '@/pages/newsCenter/industry_dynamics'
 import international_dynamics from '@/pages/newsCenter/international_dynamics'
 import textCon from '@/components/textCon'
+import pdfCon from '@/components/pdf'
 
 import systemModul from '@/components/contentView'
 import system from '@/pages/system/system'
@@ -171,7 +172,7 @@ const router =  new VueRouter({
             {
               path: ':month/:date.html',
               name: 'officialDownload',
-              component: textCon
+              component: pdfCon
             },
           ]
         }
