@@ -1,28 +1,52 @@
 <template lang="html">
   <div>
-        <div class="row logoBox margin-bottom-10">
-          <div class="col-sm-12 col-md-6">
-              <img class="img-responsive" src="@/assets/imgs/sysName.png">
-          </div>
-          <div class="col-sm-12 col-md-6">
-              <div class="input-group inputBox">
-                  <a class="icon-search"><i class="glyphicon glyphicon-search"></i></a>
-                  <input type="text" class="input-search form-control" placeholder="搜索您需要的内容..." aria-describedby="basic-addon2">
-                  <span class="input-group-addon" id="basic-addon2"><a href="#">搜 索</a></span>
-              </div>
-          </div>
+      <div class="row logoBox margin-bottom-10">
+        <div class="col-sm-12 col-md-6 logo"></div>
+        <div class="col-sm-12 col-md-6">
+            <div class="input-group inputBox">
+                <a class="icon-search"><i class="glyphicon glyphicon-search"></i></a>
+                <input type="text" :value="keyword" class="input-search form-control" placeholder="搜索您需要的内容..." aria-describedby="basic-addon2" @change="getVal($event)">
+                <span class="input-group-addon" id="basic-addon2" @click="goSearch">
+                  <router-link :to="{path:keyword==''?'':'/search', query:keyword==''?'':{keyword:keyword,pageNum:'1',page:'3',startTime:'',endTime:''}}" activeClass="active" exact>
+                    搜 索
+                  </router-link>
+                </span>
+            </div>
         </div>
-        <header-nav></header-nav>
-    </div>
-
+      </div>
+      <header-nav></header-nav>
+  </div>
 </template>
 
 <script>
 import HeaderNav from './nav.vue'
 
 export default {
+  data(){
+    return {
+      keyword: ''
+    }
+  },
   components: {
     HeaderNav
+  },
+  created() {
+    if(this.$route.query.keyword){
+      this.keyword = this.$route.query.keyword;
+    }
+  },
+  methods:{
+    getVal(e){
+      this.keyword = $.trim(e.target.value);
+    },
+    goSearch(){
+      if(this.keyword == ""){
+        alert("请输入关键字！")
+        return;
+      }else{
+        this.keyword = this.keyword;
+      }
+    }
   }
 }
 </script>
@@ -30,6 +54,12 @@ export default {
 <style lang="scss" scoped>
   .logoBox {
     margin-top: 12px;
+    .logo{
+      width: 420px;
+      height: 108px;
+      margin-right: 165px;
+      background: url(../assets/imgs/sysName.png);
+    }
   }
   .margin-bottom-10 {
     margin-bottom: 10px;

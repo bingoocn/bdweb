@@ -29,23 +29,27 @@ export default {
       liName: ''
     }
   },
-  inject: ['reload'],//注入reload方法
+  inject: ['reload'],
   methods:{
     setVal(val) {
       this.liName = val;
     },
-    changeShow() {//目前在未进行开发的模块下会卡死
+    changeShow() {
       this.reload();
     }
   },
-  mounted : function(){//设置当前所处二级菜单位置信息
+  watch: {
+    '$route': 'changeShow' // 监听路由变化，控制页面刷新
+  },
+  mounted : function(){ //设置当前所处二级菜单位置信息
     var navLi = this.$refs.Navli;
     for(var i=0; i<navLi.length; i++){
       if($($(navLi[i]).find(".active")).parents("li.Navli").find(".Navlia").html()){
         this.liName = $($(navLi[i]).find(".active")).parents("li.Navli").find(".Navlia").html();
-
       }else{
-        this.liName = this.$route.matched[0].name; // 解决分页下刷新页面问题
+        if(this.$route.matched.length != 0){
+          this.liName = this.$route.matched[0].name; // 解决分页下刷新页面问题
+        }
       }
     }
   }
@@ -62,9 +66,6 @@ export default {
   margin-bottom: 0;
   padding-left: 0;
   margin: 0;
-  li.Navli.active {
-    // background: url(../assets/imgs/Bd_Dy_navIco_03.png) no-repeat top;
-  }
   li.Navli:hover{
     .dropdownMenu {
       display: block;

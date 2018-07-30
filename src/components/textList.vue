@@ -1,20 +1,25 @@
 <template lang="html">
   <div class="listBody">
       <ul class="listUl">
-          <li v-for="(item, i) in data" @click="pushInterface()">
+          <li v-for="(item, i) in data.data" v-if="!data.openType">
             <router-link :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
             date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
               {{ item.title }}
             </router-link>
             <span>{{ item.publishDate }}</span>
           </li>
+          <li v-for="(item, i) in data.data" v-if="data.openType && data.openType=='direct'">
+            <a :href="item.url" target="_blank">
+              {{ item.title }}
+            </a>
+            <span>{{ item.publishDate }}</span>
+          </li>
       </ul>
-      <page-list></page-list>
+      <page-list :countPage='data.countPage'></page-list>
   </div>
 </template>
 
 <script>
-import pageList from '@/components/pageList'
 
 export default {
   props: {
@@ -26,21 +31,8 @@ export default {
       type: String,
       default: '',
       required: true
-    },
-    interfaces:{
-      type: String,
-      default: '',
-      required: true
     }
   },
-  methods: {
-    pushInterface() {
-      sessionStorage.setItem("interfaces",this.interfaces);
-    }
-  },
-  components: {
-    pageList
-  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="listBody4">
       <ul class="listUlPro">
-          <li v-for = "(item, i) in data">
+          <li v-for = "(item, i) in data.data">
               <p class="proTitle">
                 <router-link :title="item.title" :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
                 date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
@@ -10,13 +10,15 @@
               </p>
               <div class="answer">{{ item.summary }}</div>
               <div class="bottomPro">
-                  <a href="#">查看详情</a>
+                  <router-link :title="item.title" :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+                  date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
+                    查看详情
+                  </router-link>
                   <span class="answerDate">{{ item.publishDate }}</span>
               </div>
           </li>
       </ul>
-      <!-- text-center -->
-      <page-list :data="data"></page-list>
+      <page-list :countPage="data.countPage"></page-list>
   </div>
 </template>
 

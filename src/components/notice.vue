@@ -21,15 +21,17 @@
 
 <script>
 import menuList from '@/assets/js/menuList.js'
-import axios from 'axios'
+import { getIndexList } from '@/axios/api'
+import { getListDown } from '@/axios/api'
+import { getHelp } from '@/axios/api'
 
 export default {
   	data () {
     	return {
-            data: '',
-						path: '',
-						pathName: '',
-						menuList: menuList
+        data: '',
+				path: '',
+				pathName: '',
+				menuList: menuList
     	}
   	},
 		created() {
@@ -52,19 +54,22 @@ export default {
 			getData() {
 				let code = this.param.code;
 				if(code){
-					axios.get('/index/news_index/'+code+'').then( //需要code传值
+					getIndexList(code).then( //需要code传值
 	          res => {
-	            if(res.data.code == 0){
-								this.data = res.data.data;
-	            }
+							this.data = res.data;
+	          }
+	        )
+				}
+				if(this.param.title == "官方下载"){
+					getListDown().then(
+	          res => {
+	            this.data = res.data.data;
 	          }
 	        )
 				}else{
-					axios.get(this.param.path).then(
+					getHelp().then(
 	          res => {
-	            if(res.data.code == 0){
-								this.data = res.data.data;
-	            }
+	            this.data = res.data.data;
 	          }
 	        )
 				}

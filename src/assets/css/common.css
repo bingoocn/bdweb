@@ -171,3 +171,64 @@ a:focus{
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.ql-toolbar.ql-snow,.ql-container.ql-snow{
+  border: none !important;
+}
+.ql-container.ql-disabled .ql-tooltip{
+  display: none !important;
+}
+.cjwtBox .quill-editor .ql-editor{
+  padding: 0;
+}
+.cjwtBox .quill-editor .ql-editor p{
+  margin-bottom: 0 !important;
+  text-indent: 0 !important;
+}
+.title .quill-editor .ql-editor p{
+  color: #555;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.wen .quill-editor .ql-editor p{
+  font-size: 14px;
+  color: #888;
+  line-height: 25px;
+  text-indent: 2em !important;
+}
+/* 内容区域样式 */
+#editor{
+  font-size: 16px;
+}
+#editor p{
+  line-height: 150%;
+  margin-bottom: 23px;
+  text-indent: 2em;
+}
+#editor img{
+  width: 100%;
+}
+#editor h1, #editor h2, #editor h3, #editor h4, #editor h5, #editor h6{
+  text-indent: 2em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.cjwtBox #editor{
+  padding: 0;
+}
+.cjwtBox #editor p{
+  margin-bottom: 0 !important;
+  text-indent: 0 !important;
+}
+.title #editor p{
+  color: #555;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.wen #editor p{
+  font-size: 14px;
+  color: #888;
+  line-height: 25px;
+  text-indent: 2em !important;
+}

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="text-right">
       <nav aria-label="Page navigation">
-          <ul class="pagination">
+          <ul class="pagination" v-if="!pType">
               <li @click="currentPage = 1;changeVal()" :class = "[ currentPage == 1 ? 'disabled' : '' ]">
                 <router-link :to="{ path: path, query: {pageSize: 1} }">
                   首页
@@ -30,6 +30,41 @@
               </li>
               <li class="countSize">第{{ currentPage }}页 / 共{{ countPage }}页</li>
           </ul>
+          <ul class="pagination" v-if="pType && pType=='searchL'">
+              <li @click="currentPage = 1;changeVal()" :class = "[ currentPage == 1 ? 'disabled' : '' ]">
+                <router-link :to="{path:'/search', query:{keyword:this.$route.query.keyword,
+                  pageNum:'1',page:'4',startTime:''+this.$route.query.startTime == 'undefined'?'':this.$route.query.startTime+'',endTime:''+this.$route.query.endTime== 'undefined'?'':this.$route.query.endTime+''}}">
+                  首页
+                </router-link>
+              </li>
+              <li :class = "[ currentPage == 1 ? 'disabled' : '' ]" @click="currentPage <= 1 ? 1 : currentPage--;changeVal()">
+                  <router-link :to="{path:'/search', query:{keyword:this.$route.query.keyword,
+                    pageNum:parseInt(currentPage)-1 == intVal ? 1 : parseInt(currentPage)-1,page:'4',
+                    startTime:''+this.$route.query.startTime == 'undefined'?'':this.$route.query.startTime+'',endTime:''+this.$route.query.endTime== 'undefined'?'':this.$route.query.endTime+''}}">
+                    <span aria-hidden="true">上一页</span>
+                  </router-link>
+              </li>
+              <li :class = "[ currentPage == countPage ? 'disabled' : '' ]" @click="currentPage >= countPage ? countPage : currentPage++;changeVal()">
+                  <router-link :to="{path:'/search', query:{keyword:this.$route.query.keyword,
+                    pageNum:currentPage >= countPage ? countPage : parseInt(currentPage)+1,page:'4',
+                    startTime:''+this.$route.query.startTime == 'undefined'?'':this.$route.query.startTime+'',endTime:''+this.$route.query.endTime== 'undefined'?'':this.$route.query.endTime+''}}">
+                    <span aria-hidden="true">下一页</span>
+                  </router-link>
+              </li>
+              <li @click="currentPage = countPage;changeVal()" :class = "[ currentPage == countPage ? 'disabled' : '' ]">
+                <router-link :to="{path:'/search', query:{keyword:this.$route.query.keyword,
+                  pageNum:countPage,page:'4',startTime:''+this.$route.query.startTime == 'undefined'?'':this.$route.query.startTime+'',endTime:''+this.$route.query.endTime== 'undefined'?'':this.$route.query.endTime+''}}">
+                  尾页
+                </router-link>
+              </li>
+              <li class="toPage">
+                <a>
+                  第<input type="text" name="" :value="currentPage" @change="getVal($event)">页
+                  <button type="button" name="button" @click="goPage($event);changeVal()">GO ➜</button>
+                </a>
+              </li>
+              <li class="countSize">第{{ currentPage }}页 / 共{{ countPage }}页</li>
+          </ul>
       </nav>
   </div>
 </template>
@@ -40,16 +75,25 @@ export default {
     return {
       intVal: 1,
       currentPage: 1,
-      countPage: 10,
-      path: ''
+      path: '',
+    }
+  },
+  props: {
+    countPage:{
+      default: '',
+      required: true
+    },
+    pType:{
+      default: '',
+      type: String
     }
   },
   mounted() {
     this.path = this.$route.path;
-
     if(this.$route.query.pageSize){
       this.currentPage = parseInt(this.$route.query.pageSize);
-      this.intVal = parseInt(this.$route.query.pageSize);
+    }else if(this.$route.query.pageNum){
+      this.currentPage = parseInt(this.$route.query.pageNum);
     }
   },
   methods:{
@@ -58,7 +102,7 @@ export default {
         this.currentPage = parseInt(this.countPage);
         return ;
       };
-      if(parseInt(e.target.value) < parseInt(this.intVal) || e.target.value == ""){
+      if(parseInt(e.target.value) < parseInt(this.intVal) || parseInt(e.target.value) == ""){
         this.currentPage = parseInt(this.intVal);
         return ;
       };
@@ -79,7 +123,12 @@ export default {
       if(parseInt(this.$route.query.pageSize) == 0) {
         this.$router.push({path: this.path})
       }
-      this.$router.push({path: this.path, query: {pageSize: this.currentPage}})
+      if(this.pType && this.pType=='searchL'){
+        this.$router.push({path: '/search', query:{keyword:this.$route.query.keyword,pageNum:this.currentPage,page:'4',startTime:this.$route.query.startTime,endTime:this.$route.query.endTime}})
+      }else{
+        this.$router.push({path: this.path, query: {pageSize: this.currentPage}})
+      }
+
     }
   }
 }

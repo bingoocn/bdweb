@@ -17,7 +17,6 @@
                           </div>
                       </div>
                       <div class="articleContent">
-                          <!-- {{ data.content }} -->
                           <editor-modul :data = 'data'></editor-modul>
                       </div>
                   </div>
@@ -28,9 +27,13 @@
 </template>
 
 <script>
-import crumbsCon from '@/components/crumbs'
 import editorModul from '@/components/editor'
-import axios from 'axios'
+import { getNewsDetail } from '@/axios/api'
+import { getPicDetail } from '@/axios/api'
+import { getVideoDetail } from '@/axios/api'
+import { getScieDetail } from '@/axios/api'
+import { getPolicyDetail } from '@/axios/api'
+import { getHelpDetail } from '@/axios/api'
 
 export default {
   data() {
@@ -39,21 +42,45 @@ export default {
     }
   },
   components: {
-    crumbsCon,
     editorModul
   },
   created() {
-    let interfaces = sessionStorage.getItem("interfaces");
-    let lId = this.$route.params.date.split('_')[1];
-
-    axios.get(''+interfaces+'').then(
-      res => {
-        if(res.data.code == 0){
-          this.data = res.data.data.content;
-        }
-      }
-    )
+    this.fetchData()
   },
+  methods: {
+    fetchData() {
+      setTimeout(()=>{
+
+        let lId = this.$route.params.date.split('_')[1];
+
+        if(this.$route.name == "bd_pic"){
+          getPicDetail(lId).then(res => {
+            this.data = res.data;
+          })
+        }else if(this.$route.name == "bd_video"){
+          getVideoDetail(lId).then(res => {
+            this.data = res.data;
+          })
+        }else if(this.$route.name == "help"){
+          getHelpDetail(lId).then(res => {
+            this.data = res.data;
+          })
+        }else if(this.$route.name == "policy" || this.$route.name == "standard" || this.$route.name == "regulations"){
+          getPolicyDetail(lId).then(res => {
+            this.data = res.data;
+          })
+        }else if(this.$route.name == "bd_introduce" || this.$route.name == "resource"){
+          getScieDetail(lId).then(res => {
+            this.data = res.data;
+          })
+        }else{
+          getNewsDetail(lId).then(res => {
+            this.data = res.data;
+          })
+        }
+      }, 5)
+    }
+  }
 }
 </script>
 

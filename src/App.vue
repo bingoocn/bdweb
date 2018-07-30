@@ -3,10 +3,10 @@
     <div class="fixedHeader">
         <div class="container">
             <span class="nowTime">{{ dates }}&nbsp;&nbsp;{{ week }}</span>
-            <span class="registerAndLogin">欢迎您，{{ user }}</span>
+            <span class="registerAndLogin">中文</span>
         </div>
     </div>
-    <div class="indexBg"><img src="@/assets/imgs/bigDipper_indexBanner_171123_01.jpg"></div>
+    <div class="indexBg"></div>
 
     <div class="container">
       <home-header></home-header>
@@ -85,6 +85,9 @@ html,body{
       top: 0;
       left: 0;
       z-index: -1;
+      width: 100%;
+      height:587px;
+      background: url(./assets/imgs/bigDipper_indexBanner_171123_01.jpg);
       img {
           width: 100%;
       }

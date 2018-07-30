@@ -11,8 +11,9 @@
                     <div class="row margin-top-10">
                         <div class="col-sm-6 margin-top-10" v-for="(item, i) in data.slice(0, 1)">
 														<router-link class="vBoxA"
-														:to="{name:'bd_video', params:{month:''+item.updatetime.year+item.updatetime.month, date:'m'+item.updatetime.year+item.updatetime.month+item.updatetime.day+'_'+item.fguid}}"  target="_blank">
-															<img class="imgLg" :src="item.url">
+														:to="{name:'bd_video', params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+						                date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
+															<img class="imgLg" :src = "item.url">
 														</router-link>
                             <p class="vBoxP" :title="item.title">{{item.title}}</p>
                         </div>
@@ -20,8 +21,9 @@
                             <div class="row margin-top-10">
                                 <div class="col-xs-6 margin-bottom-10" v-for="(item, i) in data.slice(1, 5)">
                                     <router-link class="vBoxA"
-																		:to="{name:'bd_video', params:{month:''+item.updatetime.year+item.updatetime.month, date:'m'+item.updatetime.year+item.updatetime.month+item.updatetime.day+'_'+item.fguid}}"  target="_blank">
-																			<img class="imgSm" :src="item.url">
+																		:to="{name:'bd_video', params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+										                date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
+																			<img class="imgSm" :src = "item.url">
 																		</router-link>
                                     <p class="vBoxP" :title="item.title">{{item.title}}</p>
                                 </div>
@@ -35,7 +37,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import baseUrl from '@/axios/baseUrl'
+import { getVideo } from '@/axios/api'
 
 export default {
   	data () {
@@ -44,11 +47,10 @@ export default {
     	}
   	},
 		created() {
-			axios.get('/resourceModul/bd_video').then(
+			getVideo().then(
 				res => {
-					if(res.data.code == 0){
-						this.data = res.data.data;
-					}
+					this.showRecourse = baseUrl.showResource;
+					this.data = res.data.data;
 				}
 			)
 		}
@@ -56,7 +58,6 @@ export default {
 </script>
 
 <style scoped>
-	@import '../assets/css/common.css';
 	#videosList .row {
 	    margin-right: -5px;
 	    margin-left: -5px;

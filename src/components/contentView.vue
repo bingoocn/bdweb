@@ -53,6 +53,15 @@ export default{
       }
     }
   },
+  inject: ['reload'],
+  methods:{
+    changeShow() {
+      this.reload();
+    }
+  },
+  watch: {
+    '$route': 'changeShow' // 监听路由变化，控制内容与列表页的切换
+  },
   components: {
     comView
   }

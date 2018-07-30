@@ -7,10 +7,13 @@
 	            </ol>
 
 	            <div class="carousel-inner" role="listbox">
-									<div class="item" :class = "[ i == 0 ? 'active' : '' ]" v-for="(item, i) in data" @click="changeShow()">
-											<router-link :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
-					            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank" activeClass="active" exact>
-												<img :src="item.imgUrl" alt="" data-holder-rendered="true">
+									<div class="item" :class = "[ i == 0 ? 'active' : '' ]" v-for="(item, i) in data">
+											<router-link v-if="!item.type" :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+					            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.depend}}"  target="_blank" activeClass="active" exact>
+												<img :src = "item.url" alt="" data-holder-rendered="true">
+											</router-link>
+											<router-link v-if="item.type == '2'" :to="{path:item.pathName}" activeClass="active" exact>
+												<img :src = "item.url" alt="" data-holder-rendered="true">
 											</router-link>
 	                    <div class="carousel-caption">{{ item.title }}</div>
 	                </div>
@@ -31,43 +34,72 @@
 
 <script>
 import menuList from '@/assets/js/menuList.js'
-import axios from 'axios'
+import baseUrl from '@/axios/baseUrl'
+import { getListSlide } from '@/axios/api'
+import changePic from '@/common/changePic.js'
 
 export default {
   	data () {
     	return {
 				menuList: menuList,
-				data: ''
+				data: '',
+				showRecourse:""
     	}
   	},
 		inject: ['reload'],
-		methods:{
-	    changeShow() {
-	      this.reload();
-	    }
-	  },
 		created() {
-			setTimeout(()=>{
-        axios.get('/index/pic_slide').then(
-          res => {
-            if(res.data.code == 0){
-              this.data = res.data.data.pic_data;
+	    this.fetchData();// 获取数据
+
+			var getData = setInterval(()=>{
+				if(document.getElementsByClassName("item").length != 0){
+					var loaded = false;
+					var item = document.getElementsByClassName("item");
+					for(var i=0;i<item.length;i++){
+						if(item[i].getElementsByTagName("img")[0]){
+							loaded = true;
+						}
+					}
+					if(loaded){
+						setTimeout(function(){
+							changePic({
+								obj: document.getElementsByClassName("item"),
+								width: 1120,
+								height: 319
+							})
+						}, 5000)
+					}
+					clearInterval(getData)
+				}
+			},50)
+	  },
+	  methods: {
+			changeShow() {
+	      this.reload();
+	    },
+	    fetchData() {
+	      setTimeout(()=>{
+	        getListSlide().then(res => {
+						this.data = res.data;
 							for(var k=0; k<this.data.length; k++){ // 处理数据并添加路由name
 								for(var i=0; i<menuList.length; i++){
 									if(menuList[i].children){
 										for(var j=0; j<menuList[i].children.length; j++){
-											if(this.data[k].name == menuList[i].children[j].name){
-												this.data[k].pathName = menuList[i].children[j].path.split("/")[2];
+											if(this.data[k].menuItem == menuList[i].children[j].name){
+												if(menuList[i].children[j].type){
+													this.data[k].type = menuList[i].children[j].type;
+													this.data[k].pathName = menuList[i].children[j].path;
+												}else{
+													this.data[k].pathName = menuList[i].children[j].path.split("/")[2];
+												}
 											}
 										}
 									}
 								}
 							}
-            }
-          }
-        )
-      }, 5)
-		}
+	        })
+	      }, 5)
+	    }
+	  }
 
 }
 </script>
@@ -91,8 +123,8 @@ export default {
 	    height: 100%;
 	}
 	.carousel .item a img{
-		width: 100%!important;
-		height: 100%!important;
+		/*width: 100%!important;
+		height: 100%!important;*/
 	}
 	.carousel .carousel-caption{
 		right: 0;

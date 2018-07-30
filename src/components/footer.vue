@@ -7,7 +7,9 @@
                 <div class="col-md-10">
                     <p class="youqingLinkP">友情链接</p>
                     <ul>
-                      <li v-for="item in items"><a>{{item.text}}</a></li>
+                      <li v-for="item in data">
+                        <a :href="item.url" target="_blank">{{ item.title }}</a>
+                      </li>
                   </ul>
                 </div>
                 <div class="col-md-2">
@@ -31,23 +33,31 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { getFriendShip } from '../axios/api'
 
 export default {
   name: 'Footer',
   data () {
     return {
-      items:[
-        {text:'兵器工业集团公司'},
-        {text:'六部委'},
-        {text:'北斗卫星导航系统'}
-      ]
+      data:''
     }
-  }
+  },
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      setTimeout(()=>{
+        getFriendShip().then(res => {
+          this.data = res.data.data;
+        })
+      }, 5)
+    }
+  },
 }
 </script>
 
-<style lang="css">
+<style lang="scss" scoped>
   .footerBox {
     width: 100%;
     background-image: url(../assets/imgs/bigDipper_footerBg.jpg);

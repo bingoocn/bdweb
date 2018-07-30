@@ -17,7 +17,7 @@
 														</router-link>
                         </div>
                         <div class="teseBody">
-                            <img :src="item.url">
+														<img :src = "item.imageUrl">
                         </div>
                    </div>
                </div>
@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import baseUrl from '@/axios/baseUrl'
+import { getIndexListFeature } from '@/axios/api'
 
 export default {
   	data () {
@@ -36,11 +37,10 @@ export default {
     	}
   	},
 		created() {
-			axios.get('/index/chart_con').then(
+			getIndexListFeature().then(
 				res => {
-					if(res.data.code == 0){
-						this.data = res.data.data;
-					}
+					this.showRecourse = baseUrl.showResource;
+					this.data = res.data;
 				}
 			)
 		}
@@ -48,7 +48,6 @@ export default {
 </script>
 
 <style scoped>
-	@import '../assets/css/common.css';
 	.teseBox .teseHeader{
         height: 42px;
     }

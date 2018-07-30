@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="listBody3">
       <div class="row">
-          <div class="col-sm-6 col-md-4 margin-bottom-10" v-for="(item, i) in data">
+          <div class="col-sm-6 col-md-4 margin-bottom-10" v-for="(item, i) in data.data">
               <div class="listImgCon">
                 <router-link class="listImgBox" :to="{name:toName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
                 date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}"  target="_blank">
@@ -16,14 +16,20 @@
               </div>
           </div>
       </div>
-      <page-list :data="data"></page-list>
+      <page-list :countPage="data.countPage"></page-list>
   </div>
 </template>
 
 <script>
 import pageList from '@/components/pageList'
+import baseUrl from '@/axios/baseUrl'
 
 export default {
+  data() {
+    return {
+      showRecourse:""
+    }
+  },
   props: {
     data:{
       default: '',
@@ -32,6 +38,16 @@ export default {
       type: String,
       default: '',
       required: true
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      setTimeout(()=>{
+        this.showRecourse = baseUrl.showResource;
+      }, 5)
     }
   },
   components: {

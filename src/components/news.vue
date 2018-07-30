@@ -14,12 +14,14 @@
                     <div class="tab-content">
                         <div class="tab-pane" v-for="(item, j) in paneData" :class = "[ j == 0 ? 'active' : '' ]" :id="item.id">
                             <div class="row ulWithImg" v-for="(item, i) in newsList.slice(0, 1)">
-                                <div class="col-sm-2 imgBox"><img :src="newsList[0].imgSrc"></div>
+                                <div class="col-sm-2 imgBox">
+																	<img :src = "item.imageUrl">
+																</div>
                                 <div class="col-sm-10 textBox">
                                     <p>
 																			<router-link :title="item.title" :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
 													            date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}" target="_blank">
-																				{{item.title}}{{ j }}
+																				{{item.title}}
 																			</router-link>
 																		</p>
                                     <span>
@@ -31,11 +33,11 @@
                                 </div>
                             </div>
                             <ul class="bscUl1">
-                              <li v-for="(item,i) in newsList">
-                                <router-link :title="newsList[i==0?1:i].title" class="leftA" :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
+                              <li v-for="(item,i) in newsList.slice(1, 7)">
+                                <router-link :title="newsList[i==0?1:i+1].title" class="leftA" :to="{name:item.pathName, params:{month:(item.publishDate.replace(/[^\d]/g,'')).slice(0,6),
 																date:'m'+item.publishDate.replace(/[^\d]/g,'')+'_'+item.fguid}}" target="_blank">
-																	{{ newsList[i==0?1:i].title }}
-																</router-link><span>{{ newsList[i==0?1:i].publishDate }}</span>
+																	{{ newsList[i==0?1:i+1].title }}
+																</router-link><span>{{ newsList[i==0?1:i+1].publishDate }}</span>
                             	</li>
                             </ul>
                         </div>
@@ -47,7 +49,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import baseUrl from '@/axios/baseUrl'
+import { getIndexList } from '@/axios/api'
 
 const paneData = [
 		{
@@ -69,7 +72,8 @@ export default {
   	data () {
     	return {
     		newsList: "",
-				paneData: paneData
+				paneData: paneData,
+				showRecourse:""
     	}
   	},
 		inject: ['reload'],
@@ -83,27 +87,23 @@ export default {
 			getData(e) {
 				let code = "01";
 				if(e != undefined) code = e.target.attributes.code.nodeValue;
-				axios.get('/index/news_index/'+code+'').then(
-          res => {
-            if(res.data.code == 0){
-              this.newsList = res.data.data;
-							for(var i=0; i<paneData.length; i++){// 处理数据并添加路由name
-								for(var j=0; j<res.data.data.length; j++){
-									if(paneData[i].code == res.data.data[j].news_type){
-										res.data.data[j].pathName = paneData[i].id;
-									}
-								}
+				getIndexList(code).then(res => {
+					this.newsList = res.data;
+					for(var i=0; i<paneData.length; i++){ // 处理数据并添加路由name
+						for(var j=0; j<res.data.length; j++){
+							if(paneData[i].code == res.data[j].newsType){
+								res.data[j].pathName = paneData[i].id;
+
 							}
-            }
-          }
-        )
+						}
+					}
+        })
 			}
 	  }
 }
 </script>
 
 <style scoped>
-	@import '../assets/css/common.css';
 	.newsTitle{
 	margin-top: 10px;
 	margin-left: -5px;

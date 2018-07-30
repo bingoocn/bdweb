@@ -36,21 +36,24 @@ const menuList = [{
     {
       path: '/systemModul/system',
       name: '系统介绍',
-      mId: '01'
+      mId: '01',
+      type: '2'
     },
     {
       path: '/systemModul/datumStation',
       name: '基准站分布',
-      mId: '02'
+      mId: '02',
+      type: '2'
     },
     {
       path: '/systemModul/dataProce',
       name: '国家数据综合处理系统',
-      mId: '03'
+      mId: '03',
+      type: '2'
     },
     {
       path: '/systemModul/monthReport',
-      name: '监测评估（月报）',
+      name: '监测评估',
       mId: '04'
     },
     {
@@ -67,32 +70,38 @@ const menuList = [{
     {
       path: '/applicationModul/application',
       name: '交通',
-      mId: '01'
+      mId: '01',
+      type: '2'
     },
     {
       path: '/applicationModul/mapping',
       name: '测绘',
-      mId: '02'
+      mId: '02',
+      type: '2'
     },
     {
       path: '/applicationModul/weather',
       name: '气象',
-      mId: '03'
+      mId: '03',
+      type: '2'
     },
     {
       path: '/applicationModul/earthquake',
       name: '地震',
-      mId: '04'
+      mId: '04',
+      type: '2'
     },
     {
       path: '/applicationModul/landResources',
       name: '国土资源',
-      mId: '05'
+      mId: '05',
+      type: '2'
     },
     {
       path: '/applicationModul/civil',
       name: '高精度民用',
-      mId: '06'
+      mId: '06',
+      type: '2'
     }
   ]
 },{

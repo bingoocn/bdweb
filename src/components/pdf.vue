@@ -1,17 +1,27 @@
 <template lang="html">
   <div class="wrap">
-    <embed id="plugin" :src="data.src" width="100%" height="700px">
+    <embed id="plugin" :src="data" width="100%" height="700px">
   </div>
 </template>
 
 <script>
+import baseUrl from '@/axios/baseUrl'
+
 export default {
   data() {
     return {
-      data:{
-        src: "http://www.beidou.gov.cn/xt/gfxz/201802/P020180209623601401189.pdf",
-        type: "application/pdf"
-      }
+      data:""
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      setTimeout(()=>{
+        let lId = this.$route.params.date.split('_')[1];
+        this.data = baseUrl.showResource +'/'+ lId;
+      }, 5)
     }
   }
 }
